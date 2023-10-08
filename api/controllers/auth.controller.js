@@ -36,7 +36,9 @@ export const signUp = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
 
+  //Create user in database
   const newUser = new User({ username, email, password: hashPassword });
   const user = await newUser.save();
+
   res.status(201).json({ msg: "User created successfully", user });
 });
